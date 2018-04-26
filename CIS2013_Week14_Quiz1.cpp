@@ -65,7 +65,7 @@ public:
 
 int main() {
 	char stay;
-	int userRows, userCols, userBomb;
+	int xCor, yCor;
 	string userName;
 	MineSweeper user;
 
@@ -83,6 +83,9 @@ int main() {
 	user.setBombs();
 	
 	user.printBoard();
+
+	cout << "Which coordinates would you like to check? ";
+	cin >> xCor >> yCor;
 
 	cin >> stay;
 }
