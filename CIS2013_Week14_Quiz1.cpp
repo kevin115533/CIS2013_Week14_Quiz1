@@ -1,23 +1,18 @@
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <time.h>
 using namespace std;
 
-class Game {
+class Game{
 private:
-	
 	string name;
 	int score;
 public:
-	Game() {
-		string gameName = "MineSweeper";
-	}
+	
 
-	void setName(string x) {
-		name = x;
-	}
-
-	void setScore(int x) {
-		score = x;
+	Game(string nm) {
+		name = nm;
 	}
 
 	string getName() {
@@ -28,64 +23,77 @@ public:
 		return score;
 	}
 
+	void setName(string x) {
+		name = x;
+	}
+
+	void setScore(int x) {
+		score = x;
+	}
 };
 
 class MineSweeper :public Game {
-private:
-	int boardRows, boardCols, userCood, mine;
-	int boardSize;
 public:
+	int rows, columns, selectedSpot, bombSpot;
 
-	void setRows(){
-		cin >> boardRows;
+	MineSweeper(string nm,int r, int c):Game(nm) {
+		rows = r;
+		columns = c;
 	}
 
-	void setCols() {
-		cin >> boardCols;
+	void setColumns(int x) {
+		columns = x;
 	}
 
-	void setBombs() {
-		cin >> mine;
+	void setRows(int x) {
+		rows = x;
 	}
 
-	void printBoard() {
-		for (int x = 0; x < boardCols; x++) {
+	void printUserBoard(int rw, int co) {
+		for (int x = 0; x < co; x++) {
 			cout << x << " ";
 		}
 		cout << endl;
-		for (int x=0; x < boardCols; x++) {
-			cout << x +1 << " ";
-			for (int y = 0; y < boardRows; y++) {
+		for (int x = 0; x < co; x++) {
+			for (int y = 0; y < rw; y++) {
 				cout << ". ";
 			}
 			cout << endl;
+		}
+	}
+
+	void mineBoard(int **x) {
+		x = new int*[columns];
+		for (int i = 0; i < columns; i++) {
+			x[i] = new int[rows];
 		}
 	}
 };
 
 int main() {
 	char stay;
-	int xCor, yCor;
-	string userName;
-	MineSweeper user;
+	string name;
+	int columns, rows, mines;
+	int **mineField, **userField;
 
+	cout << "Welcome to Minesweeper" << endl;
 	cout << "What is your name? ";
-	cin >> userName;
-	user.setName(userName);
+	cin >> name;
 
-	cout << "How many rows would you like to play with? ";
-	user.setRows();
+	cout << "How many columns do you want to play? ";
+	cin >> columns;
 
-	cout << "How many columns would you like to play with? ";
-	user.setCols();
+	cout << "How many rows do you want to play? ";
+	cin >> rows;
+
+	cout << "How many mines do you want on the field? ";
+	cin >> mines;
+
+	MineSweeper user(name, rows, columns);
 	
-	cout << "How many bombs do you want to play with? ";
-	user.setBombs();
 	
-	user.printBoard();
-
-	cout << "Which coordinates would you like to check? ";
-	cin >> xCor >> yCor;
 
 	cin >> stay;
+
+	return 0;
 }
